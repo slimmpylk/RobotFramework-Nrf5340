@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.11.4 on win32)" generated="2024-10-29T12:46:20.326981" rpa="false" schemaversion="5">
+<suite id="s1" name="Serial Led Control" source="C:\Users\sammi\Desktop\vko7Pylkkonen\src\serial_led_control.robot">
+<test id="s1-t1" name="Test Valid Time String" line="12">
+<kw name="Connect Serial">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${com}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="0.000000"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="0.000000"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-29T12:46:25.438004" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="5.000508"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="5.000508"/>
+</kw>
+<kw name="Send Time String">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sending time string: ${time_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:25.439068" elapsed="0.000947"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${time_string}\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2024-10-29T12:46:25.440015" elapsed="0.000879"/>
+</kw>
+<arg>000120</arg>
+<status status="PASS" start="2024-10-29T12:46:25.438004" elapsed="0.002890"/>
+</kw>
+<kw name="Read Response">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-29T12:46:25.441233" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-29T12:46:25.441233" elapsed="0.000000"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2024-10-29T12:46:26.521579" level="INFO">${response} = 000120
+80
+</msg>
+<var>${response}</var>
+<arg>terminator=\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2024-10-29T12:46:25.442243" elapsed="1.079336"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Full response: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.521579" elapsed="0.002053"/>
+</kw>
+<kw name="Remove CR Characters">
+<kw name="Replace String" owner="String">
+<msg time="2024-10-29T12:46:26.525684" level="INFO">${cleaned_string} = 000120
+80
+</msg>
+<var>${cleaned_string}</var>
+<arg>${input_string}</arg>
+<arg>\r</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.524669" elapsed="0.001015"/>
+</kw>
+<return>
+<value>${cleaned_string}</value>
+<status status="PASS" start="2024-10-29T12:46:26.525684" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-29T12:46:26.526685" level="INFO">${cleaned_response} = 000120
+80
+</msg>
+<var>${cleaned_response}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:26.523632" elapsed="0.003053"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T12:46:26.526685" level="INFO">Cleaned response: 000120
+80
+</msg>
+<arg>Cleaned response: ${cleaned_response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.526685" elapsed="0.000000"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T12:46:26.527676" level="INFO">Length is 10.</msg>
+<msg time="2024-10-29T12:46:26.527676" level="INFO">${response_length} = 10</msg>
+<var>${response_length}</var>
+<arg>${cleaned_response}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.527676" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:26.528688" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${cleaned_response}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.528688" elapsed="0.000000"/>
+</kw>
+<arg>${response_length} &gt; 0</arg>
+<arg>Return From Keyword</arg>
+<arg>${cleaned_response}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.527676" elapsed="0.001012"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Invalid response, retrying... (${i}/${retries})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:26.528688" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>${delay}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:26.528688" elapsed="0.000000"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-29T12:46:25.442243" elapsed="1.086445"/>
+</iter>
+<var>${i}</var>
+<value>${retries}</value>
+<status status="PASS" start="2024-10-29T12:46:25.441233" elapsed="1.087455"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No valid response found after ${retries} retries.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:26.528688" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:26.529666" level="INFO">${response} = 000120
+80
+</msg>
+<var>${response}</var>
+<status status="PASS" start="2024-10-29T12:46:25.441233" elapsed="1.088433"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.529666" elapsed="0.000983"/>
+</kw>
+<kw name="Extract Parsed Value">
+<kw name="Split String" owner="String">
+<msg time="2024-10-29T12:46:26.532162" level="INFO">${lines} = ['000120', '80', '']</msg>
+<var>${lines}</var>
+<arg>${response}</arg>
+<arg>\n</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.532162" elapsed="0.000000"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${lines}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.532162" elapsed="0.001068"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:26.533230" level="INFO">${stripped_line} = </msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.533230" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.534204" elapsed="0.000000"/>
+</kw>
+<var name="${line}"/>
+<status status="PASS" start="2024-10-29T12:46:26.533230" elapsed="0.000974"/>
+</iter>
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:26.535249" level="INFO">${stripped_line} = 80</msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.535249" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:26.537214" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${stripped_line}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.536177" elapsed="0.001037"/>
+</kw>
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.536177" elapsed="0.001037"/>
+</kw>
+<var name="${line}">80</var>
+<status status="PASS" start="2024-10-29T12:46:26.534204" elapsed="0.003010"/>
+</iter>
+<var>${line}</var>
+<value>@{lines}</value>
+<status status="PASS" start="2024-10-29T12:46:26.533230" elapsed="0.003984"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No non-empty line found in response</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:26.537214" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:26.537214" level="INFO">${parsed_value} = 80</msg>
+<var>${parsed_value}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:26.530649" elapsed="0.006565"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${parsed_value}</arg>
+<arg>80</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.538175" elapsed="0.000998"/>
+</kw>
+<kw name="Disconnect Serial" type="TEARDOWN">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting serial port</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.539173" elapsed="0.001038"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.540211" elapsed="0.002968"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:26.539173" elapsed="0.004006"/>
+</kw>
+<doc>Test parsing a valid time string '000120' (1 minute 20 seconds)</doc>
+<status status="PASS" start="2024-10-29T12:46:20.437496" elapsed="6.106685"/>
+</test>
+<test id="s1-t2" name="Test Invalid Time String" line="22">
+<kw name="Connect Serial">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${com}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.548641" elapsed="0.001025"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.549666" elapsed="0.002972"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.552638" elapsed="0.001003"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.553641" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.553641" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-29T12:46:31.553881" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-29T12:46:26.553641" elapsed="5.000240"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:26.548641" elapsed="5.005756"/>
+</kw>
+<kw name="Send Time String">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sending time string: ${time_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:31.555308" elapsed="0.001066"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${time_string}\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2024-10-29T12:46:31.556374" elapsed="0.000962"/>
+</kw>
+<arg>001067</arg>
+<status status="PASS" start="2024-10-29T12:46:31.555308" elapsed="0.002028"/>
+</kw>
+<kw name="Read Response">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-29T12:46:31.559365" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-29T12:46:31.558370" elapsed="0.000995"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2024-10-29T12:46:32.658967" level="INFO">${response} = 001067
+Error: Invalid second value: 67
+x
+</msg>
+<var>${response}</var>
+<arg>terminator=\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2024-10-29T12:46:31.560419" elapsed="1.098548"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Full response: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.658967" elapsed="0.002038"/>
+</kw>
+<kw name="Remove CR Characters">
+<kw name="Replace String" owner="String">
+<msg time="2024-10-29T12:46:32.662003" level="INFO">${cleaned_string} = 001067
+Error: Invalid second value: 67
+x
+</msg>
+<var>${cleaned_string}</var>
+<arg>${input_string}</arg>
+<arg>\r</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.661005" elapsed="0.000998"/>
+</kw>
+<return>
+<value>${cleaned_string}</value>
+<status status="PASS" start="2024-10-29T12:46:32.662003" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-29T12:46:32.662003" level="INFO">${cleaned_response} = 001067
+Error: Invalid second value: 67
+x
+</msg>
+<var>${cleaned_response}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:32.661005" elapsed="0.000998"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T12:46:32.662003" level="INFO">Cleaned response: 001067
+Error: Invalid second value: 67
+x
+</msg>
+<arg>Cleaned response: ${cleaned_response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.662003" elapsed="0.000000"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T12:46:32.663002" level="INFO">Length is 41.</msg>
+<msg time="2024-10-29T12:46:32.663002" level="INFO">${response_length} = 41</msg>
+<var>${response_length}</var>
+<arg>${cleaned_response}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.663002" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:32.663002" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${cleaned_response}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.663002" elapsed="0.000000"/>
+</kw>
+<arg>${response_length} &gt; 0</arg>
+<arg>Return From Keyword</arg>
+<arg>${cleaned_response}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.663002" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Invalid response, retrying... (${i}/${retries})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:32.663002" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>${delay}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:32.664002" elapsed="0.000000"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-29T12:46:31.560419" elapsed="1.103583"/>
+</iter>
+<var>${i}</var>
+<value>${retries}</value>
+<status status="PASS" start="2024-10-29T12:46:31.559365" elapsed="1.104637"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No valid response found after ${retries} retries.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:32.664002" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:32.664002" level="INFO">${response} = 001067
+Error: Invalid second value: 67
+x
+</msg>
+<var>${response}</var>
+<status status="PASS" start="2024-10-29T12:46:31.558370" elapsed="1.105632"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.664002" elapsed="0.001002"/>
+</kw>
+<kw name="Extract Parsed Value">
+<kw name="Split String" owner="String">
+<msg time="2024-10-29T12:46:32.666005" level="INFO">${lines} = ['001067', 'Error: Invalid second value: 67', 'x', '']</msg>
+<var>${lines}</var>
+<arg>${response}</arg>
+<arg>\n</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.666005" elapsed="0.000000"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${lines}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.666005" elapsed="0.001064"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:32.667069" level="INFO">${stripped_line} = </msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.667069" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.667069" elapsed="0.000000"/>
+</kw>
+<var name="${line}"/>
+<status status="PASS" start="2024-10-29T12:46:32.667069" elapsed="0.000936"/>
+</iter>
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:32.668005" level="INFO">${stripped_line} = x</msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.668005" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:32.669008" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${stripped_line}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.668005" elapsed="0.001003"/>
+</kw>
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.668005" elapsed="0.001003"/>
+</kw>
+<var name="${line}">x</var>
+<status status="PASS" start="2024-10-29T12:46:32.668005" elapsed="0.001003"/>
+</iter>
+<var>${line}</var>
+<value>@{lines}</value>
+<status status="PASS" start="2024-10-29T12:46:32.667069" elapsed="0.001939"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No non-empty line found in response</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:32.669008" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:32.669008" level="INFO">${parsed_value} = x</msg>
+<var>${parsed_value}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:32.666005" elapsed="0.003003"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${parsed_value}</arg>
+<arg>x</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.670006" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect Serial" type="TEARDOWN">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting serial port</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.671013" elapsed="0.000000"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.672013" elapsed="0.004002"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:32.670006" elapsed="0.006009"/>
+</kw>
+<doc>Test parsing an invalid time string '001067' (invalid seconds)</doc>
+<status status="PASS" start="2024-10-29T12:46:26.547642" elapsed="6.129372"/>
+</test>
+<test id="s1-t3" name="Test Time String Length" line="32">
+<kw name="Connect Serial">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${com}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.679721" elapsed="0.000000"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.680699" elapsed="0.002523"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.684281" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.684281" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.684281" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-29T12:46:37.685613" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-29T12:46:32.684281" elapsed="5.001332"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:32.678688" elapsed="5.006925"/>
+</kw>
+<kw name="Send Time String">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sending time string: ${time_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:37.686635" elapsed="0.001051"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${time_string}\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2024-10-29T12:46:37.688632" elapsed="0.001012"/>
+</kw>
+<arg>00120</arg>
+<status status="PASS" start="2024-10-29T12:46:37.686635" elapsed="0.003009"/>
+</kw>
+<kw name="Read Response">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-29T12:46:37.691688" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-29T12:46:37.690681" elapsed="0.001007"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2024-10-29T12:46:38.765793" level="INFO">${response} = 00120
+x
+</msg>
+<var>${response}</var>
+<arg>terminator=\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2024-10-29T12:46:37.691688" elapsed="1.074105"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Full response: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.766861" elapsed="0.004015"/>
+</kw>
+<kw name="Remove CR Characters">
+<kw name="Replace String" owner="String">
+<msg time="2024-10-29T12:46:38.771887" level="INFO">${cleaned_string} = 00120
+x
+</msg>
+<var>${cleaned_string}</var>
+<arg>${input_string}</arg>
+<arg>\r</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.771887" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${cleaned_string}</value>
+<status status="PASS" start="2024-10-29T12:46:38.771887" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-29T12:46:38.771887" level="INFO">${cleaned_response} = 00120
+x
+</msg>
+<var>${cleaned_response}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:38.770876" elapsed="0.001011"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T12:46:38.772877" level="INFO">Cleaned response: 00120
+x
+</msg>
+<arg>Cleaned response: ${cleaned_response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.772877" elapsed="0.000000"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T12:46:38.772877" level="INFO">Length is 8.</msg>
+<msg time="2024-10-29T12:46:38.772877" level="INFO">${response_length} = 8</msg>
+<var>${response_length}</var>
+<arg>${cleaned_response}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.772877" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:38.772877" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${cleaned_response}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.772877" elapsed="0.000000"/>
+</kw>
+<arg>${response_length} &gt; 0</arg>
+<arg>Return From Keyword</arg>
+<arg>${cleaned_response}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.772877" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Invalid response, retrying... (${i}/${retries})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:38.773875" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>${delay}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:38.773875" elapsed="0.000000"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-29T12:46:37.691688" elapsed="1.082187"/>
+</iter>
+<var>${i}</var>
+<value>${retries}</value>
+<status status="PASS" start="2024-10-29T12:46:37.691688" elapsed="1.082187"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No valid response found after ${retries} retries.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:38.773875" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:38.773875" level="INFO">${response} = 00120
+x
+</msg>
+<var>${response}</var>
+<status status="PASS" start="2024-10-29T12:46:37.689644" elapsed="1.084231"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.773875" elapsed="0.001000"/>
+</kw>
+<kw name="Extract Parsed Value">
+<kw name="Split String" owner="String">
+<msg time="2024-10-29T12:46:38.776877" level="INFO">${lines} = ['00120', 'x', '']</msg>
+<var>${lines}</var>
+<arg>${response}</arg>
+<arg>\n</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.775877" elapsed="0.001000"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${lines}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.776877" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:38.779874" level="INFO">${stripped_line} = </msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.778937" elapsed="0.000937"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.779874" elapsed="0.000000"/>
+</kw>
+<var name="${line}"/>
+<status status="PASS" start="2024-10-29T12:46:38.776877" elapsed="0.002997"/>
+</iter>
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:38.780877" level="INFO">${stripped_line} = x</msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.779874" elapsed="0.001003"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:38.783579" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${stripped_line}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.782670" elapsed="0.001887"/>
+</kw>
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.780877" elapsed="0.003680"/>
+</kw>
+<var name="${line}">x</var>
+<status status="PASS" start="2024-10-29T12:46:38.779874" elapsed="0.004683"/>
+</iter>
+<var>${line}</var>
+<value>@{lines}</value>
+<status status="PASS" start="2024-10-29T12:46:38.776877" elapsed="0.007680"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No non-empty line found in response</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:38.784557" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:38.784557" level="INFO">${parsed_value} = x</msg>
+<var>${parsed_value}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:38.775877" elapsed="0.008680"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${parsed_value}</arg>
+<arg>x</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.785522" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect Serial" type="TEARDOWN">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting serial port</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.785522" elapsed="0.000996"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.787583" elapsed="0.003942"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:38.785522" elapsed="0.006003"/>
+</kw>
+<doc>Test that the device rejects time strings not exactly 6 characters long</doc>
+<status status="PASS" start="2024-10-29T12:46:32.677668" elapsed="6.113857"/>
+</test>
+<test id="s1-t4" name="Test Non-Zero Time String" line="42">
+<kw name="Connect Serial">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${com}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.800245" elapsed="0.000000"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.801154" elapsed="0.002987"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.804141" elapsed="0.000999"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.805140" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.805140" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-29T12:46:43.805643" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-29T12:46:38.805140" elapsed="5.000503"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:38.798194" elapsed="5.007449"/>
+</kw>
+<kw name="Send Time String">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sending time string: ${time_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:43.805643" elapsed="0.001454"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${time_string}\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2024-10-29T12:46:43.807097" elapsed="0.000993"/>
+</kw>
+<arg>000000</arg>
+<status status="PASS" start="2024-10-29T12:46:43.805643" elapsed="0.002447"/>
+</kw>
+<kw name="Read Response">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-29T12:46:43.809128" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-29T12:46:43.808090" elapsed="0.001038"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2024-10-29T12:46:44.904616" level="INFO">${response} = 000000
+Error: Time value cannot be zero (00:00:00).
+x
+</msg>
+<var>${response}</var>
+<arg>terminator=\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2024-10-29T12:46:43.809128" elapsed="1.095488"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Full response: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.905663" elapsed="0.002021"/>
+</kw>
+<kw name="Remove CR Characters">
+<kw name="Replace String" owner="String">
+<msg time="2024-10-29T12:46:44.910307" level="INFO">${cleaned_string} = 000000
+Error: Time value cannot be zero (00:00:00).
+x
+</msg>
+<var>${cleaned_string}</var>
+<arg>${input_string}</arg>
+<arg>\r</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.908738" elapsed="0.001569"/>
+</kw>
+<return>
+<value>${cleaned_string}</value>
+<status status="PASS" start="2024-10-29T12:46:44.910307" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-29T12:46:44.911373" level="INFO">${cleaned_response} = 000000
+Error: Time value cannot be zero (00:00:00).
+x
+</msg>
+<var>${cleaned_response}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:44.907684" elapsed="0.003689"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T12:46:44.911373" level="INFO">Cleaned response: 000000
+Error: Time value cannot be zero (00:00:00).
+x
+</msg>
+<arg>Cleaned response: ${cleaned_response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.911373" elapsed="0.000000"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T12:46:44.912372" level="INFO">Length is 54.</msg>
+<msg time="2024-10-29T12:46:44.912372" level="INFO">${response_length} = 54</msg>
+<var>${response_length}</var>
+<arg>${cleaned_response}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.912372" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:44.912372" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${cleaned_response}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.912372" elapsed="0.000000"/>
+</kw>
+<arg>${response_length} &gt; 0</arg>
+<arg>Return From Keyword</arg>
+<arg>${cleaned_response}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.912372" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Invalid response, retrying... (${i}/${retries})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:44.912372" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>${delay}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:44.912372" elapsed="0.001002"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-29T12:46:43.809128" elapsed="1.104246"/>
+</iter>
+<var>${i}</var>
+<value>${retries}</value>
+<status status="PASS" start="2024-10-29T12:46:43.809128" elapsed="1.104246"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No valid response found after ${retries} retries.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:44.913374" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:44.913374" level="INFO">${response} = 000000
+Error: Time value cannot be zero (00:00:00).
+x
+</msg>
+<var>${response}</var>
+<status status="PASS" start="2024-10-29T12:46:43.808090" elapsed="1.105284"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.913374" elapsed="0.001978"/>
+</kw>
+<kw name="Extract Parsed Value">
+<kw name="Split String" owner="String">
+<msg time="2024-10-29T12:46:44.916319" level="INFO">${lines} = ['000000', 'Error: Time value cannot be zero (00:00:00).', 'x', '']</msg>
+<var>${lines}</var>
+<arg>${response}</arg>
+<arg>\n</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.916319" elapsed="0.000000"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${lines}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.916319" elapsed="0.000000"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:44.917321" level="INFO">${stripped_line} = </msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.916319" elapsed="0.001002"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.917321" elapsed="0.000000"/>
+</kw>
+<var name="${line}"/>
+<status status="PASS" start="2024-10-29T12:46:44.916319" elapsed="0.001002"/>
+</iter>
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:44.918320" level="INFO">${stripped_line} = x</msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.917321" elapsed="0.000999"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:44.918320" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${stripped_line}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.918320" elapsed="0.000000"/>
+</kw>
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.918320" elapsed="0.001000"/>
+</kw>
+<var name="${line}">x</var>
+<status status="PASS" start="2024-10-29T12:46:44.917321" elapsed="0.001999"/>
+</iter>
+<var>${line}</var>
+<value>@{lines}</value>
+<status status="PASS" start="2024-10-29T12:46:44.916319" elapsed="0.003001"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No non-empty line found in response</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:44.919320" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:44.919320" level="INFO">${parsed_value} = x</msg>
+<var>${parsed_value}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:44.915352" elapsed="0.003968"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${parsed_value}</arg>
+<arg>x</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.920319" elapsed="0.000000"/>
+</kw>
+<kw name="Disconnect Serial" type="TEARDOWN">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting serial port</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.922428" elapsed="0.000894"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.923322" elapsed="0.004095"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:44.921429" elapsed="0.006892"/>
+</kw>
+<doc>Test that the device rejects time strings resulting in 0 seconds</doc>
+<status status="PASS" start="2024-10-29T12:46:38.794518" elapsed="6.133803"/>
+</test>
+<test id="s1-t5" name="Test Time String Is Digit" line="52">
+<kw name="Connect Serial">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Connecting to ${com}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.931317" elapsed="0.000498"/>
+</kw>
+<kw name="Add Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<arg>baudrate=${baud}</arg>
+<arg>encoding=ascii</arg>
+<doc>Adds new port with specified locator.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.931815" elapsed="0.002592"/>
+</kw>
+<kw name="Port Should Be Open" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Fails if specified port is closed.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.934407" elapsed="0.001044"/>
+</kw>
+<kw name="Reset Input Buffer" owner="SerialLibrary">
+<doc>Clears input buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.935451" elapsed="0.000000"/>
+</kw>
+<kw name="Reset Output Buffer" owner="SerialLibrary">
+<doc>Clears outout buffer.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.936471" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-10-29T12:46:49.936705" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-10-29T12:46:44.936471" elapsed="5.000234"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:44.931317" elapsed="5.005388"/>
+</kw>
+<kw name="Send Time String">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sending time string: ${time_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:49.938063" elapsed="0.001026"/>
+</kw>
+<kw name="Write Data" owner="SerialLibrary">
+<arg>${time_string}\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Writes data into the port.</doc>
+<status status="PASS" start="2024-10-29T12:46:49.939089" elapsed="0.000995"/>
+</kw>
+<arg>00a120</arg>
+<status status="PASS" start="2024-10-29T12:46:49.938063" elapsed="0.002021"/>
+</kw>
+<kw name="Read Response">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-29T12:46:49.942129" level="INFO">${response} = </msg>
+<var>${response}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-29T12:46:49.942129" elapsed="0.001019"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Read Until" owner="SerialLibrary">
+<msg time="2024-10-29T12:46:51.025445" level="INFO">${response} = 00a120
+x
+</msg>
+<var>${response}</var>
+<arg>terminator=\n</arg>
+<arg>encoding=ascii</arg>
+<doc>Read until a termination sequence is found, size exceeded or timeout.</doc>
+<status status="PASS" start="2024-10-29T12:46:49.943148" elapsed="1.082297"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Full response: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.026478" elapsed="0.001994"/>
+</kw>
+<kw name="Remove CR Characters">
+<kw name="Replace String" owner="String">
+<msg time="2024-10-29T12:46:51.030532" level="INFO">${cleaned_string} = 00a120
+x
+</msg>
+<var>${cleaned_string}</var>
+<arg>${input_string}</arg>
+<arg>\r</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.029525" elapsed="0.001007"/>
+</kw>
+<return>
+<value>${cleaned_string}</value>
+<status status="PASS" start="2024-10-29T12:46:51.030532" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-29T12:46:51.030532" level="INFO">${cleaned_response} = 00a120
+x
+</msg>
+<var>${cleaned_response}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:51.028472" elapsed="0.002060"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T12:46:51.031516" level="INFO">Cleaned response: 00a120
+x
+</msg>
+<arg>Cleaned response: ${cleaned_response}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.030532" elapsed="0.000984"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T12:46:51.031516" level="INFO">Length is 9.</msg>
+<msg time="2024-10-29T12:46:51.031516" level="INFO">${response_length} = 9</msg>
+<var>${response_length}</var>
+<arg>${cleaned_response}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.031516" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:51.031516" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${cleaned_response}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.031516" elapsed="0.000999"/>
+</kw>
+<arg>${response_length} &gt; 0</arg>
+<arg>Return From Keyword</arg>
+<arg>${cleaned_response}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.031516" elapsed="0.000999"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Invalid response, retrying... (${i}/${retries})</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:51.032515" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>${delay}</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:51.032515" elapsed="0.000000"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2024-10-29T12:46:49.943148" elapsed="1.089367"/>
+</iter>
+<var>${i}</var>
+<value>${retries}</value>
+<status status="PASS" start="2024-10-29T12:46:49.943148" elapsed="1.089367"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No valid response found after ${retries} retries.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:51.032515" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:51.032515" level="INFO">${response} = 00a120
+x
+</msg>
+<var>${response}</var>
+<status status="PASS" start="2024-10-29T12:46:49.941122" elapsed="1.091393"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Received: ${response}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.033331" elapsed="0.000401"/>
+</kw>
+<kw name="Extract Parsed Value">
+<kw name="Split String" owner="String">
+<msg time="2024-10-29T12:46:51.034750" level="INFO">${lines} = ['00a120', 'x', '']</msg>
+<var>${lines}</var>
+<arg>${response}</arg>
+<arg>\n</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.034750" elapsed="0.000000"/>
+</kw>
+<kw name="Reverse List" owner="Collections">
+<arg>${lines}</arg>
+<doc>Reverses the given list in place.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.034750" elapsed="0.001062"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:51.035812" level="INFO">${stripped_line} = </msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.000000"/>
+</kw>
+<var name="${line}"/>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.000000"/>
+</iter>
+<iter>
+<kw name="Strip String" owner="String">
+<msg time="2024-10-29T12:46:51.035812" level="INFO">${stripped_line} = x</msg>
+<var>${stripped_line}</var>
+<arg>${line}</arg>
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.000000"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Return From Keyword" owner="BuiltIn">
+<msg time="2024-10-29T12:46:51.037177" level="INFO">Returning from the enclosing user keyword.</msg>
+<arg>${stripped_line}</arg>
+<doc>Returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.037177" elapsed="0.000000"/>
+</kw>
+<arg>'${stripped_line}' != ''</arg>
+<arg>Return From Keyword</arg>
+<arg>${stripped_line}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.037177" elapsed="0.000000"/>
+</kw>
+<var name="${line}">x</var>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.001365"/>
+</iter>
+<var>${line}</var>
+<value>@{lines}</value>
+<status status="PASS" start="2024-10-29T12:46:51.035812" elapsed="0.001365"/>
+</for>
+<kw name="Fail" owner="BuiltIn">
+<arg>No non-empty line found in response</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2024-10-29T12:46:51.037177" elapsed="0.000000"/>
+</kw>
+<msg time="2024-10-29T12:46:51.038177" level="INFO">${parsed_value} = x</msg>
+<var>${parsed_value}</var>
+<arg>${response}</arg>
+<status status="PASS" start="2024-10-29T12:46:51.034750" elapsed="0.003427"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${parsed_value}</arg>
+<arg>x</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.038177" elapsed="0.001004"/>
+</kw>
+<kw name="Disconnect Serial" type="TEARDOWN">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Disconnecting serial port</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.039181" elapsed="0.000994"/>
+</kw>
+<kw name="Delete Port" owner="SerialLibrary">
+<arg>${com}</arg>
+<doc>Deletes specified port.</doc>
+<status status="PASS" start="2024-10-29T12:46:51.040175" elapsed="0.005075"/>
+</kw>
+<status status="PASS" start="2024-10-29T12:46:51.039181" elapsed="0.007000"/>
+</kw>
+<doc>Test that the device rejects time strings containing non-digit characters</doc>
+<status status="PASS" start="2024-10-29T12:46:44.929415" elapsed="6.117874"/>
+</test>
+<status status="PASS" start="2024-10-29T12:46:20.326981" elapsed="30.722196"/>
+</suite>
+<statistics>
+<total>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="5" fail="0" skip="0" id="s1" name="Serial Led Control">Serial Led Control</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
