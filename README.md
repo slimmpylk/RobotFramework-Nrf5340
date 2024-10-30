@@ -30,14 +30,31 @@ The Robot Framework ensures that the entire system operates as expected across a
 
 ## Directory Structure
 ```
-root/
+vko7Pylkkonen/
+ ├── .vscode/
+ │    ├── c_cpp_properties.json
+ │    └── settings.json
+ ├── build/
+ ├── googletest/
  ├── src/
- |    ├── main.c
- |    ├── TimeParser.c
- |    ├── TrafficParser.c
- |    └── serial_led_control.robot  # Robot Framework test suite
- ├── include/
+ │    ├── log.html
+ │    ├── main.c
+ │    ├── output.xml
+ │    ├── report.html
+ │    ├── serial_led_control.robot  # Robot Framework test suite
+ │    ├── TimeParser.c
+ │    ├── TimeParser.h
+ │    ├── TrafficParser.c
+ │    └── TrafficParser.h
+ ├── tests/
+ │    ├── build/
+ │    ├── CMakeLists.txt
+ │    ├── TimeParserTest.cpp
+ │    └── TrafficParserTest.cpp
+ ├── .gitignore
+ ├── .gitmodules
  ├── CMakeLists.txt
+ ├── prj.conf
  └── README.md
 ```
 
