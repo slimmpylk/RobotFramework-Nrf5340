@@ -1,10 +1,4 @@
-// robotti frameworkki
 
-// Samuli Pylkkönen
-// TVT22SPL
-// 2 pistettä
-
-//Otettu osa asserteista kommentteihin ja muutamia printk komentoja myös että robotti saatu toimimaan. Mutta yleisesti kaikki R,1000,G,100,T,3 ... toimii 
 
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
