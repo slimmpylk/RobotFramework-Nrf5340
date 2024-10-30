@@ -66,6 +66,9 @@ root/
    ```
 3. After tests, logs will be generated in the `src` folder (`log.html`, `report.html`, and `output.xml`).
 
+   ![kuva](https://github.com/user-attachments/assets/b1515f4a-0fc8-4634-af58-f27da9e3adde)
+
+
 ## Usage
 - Connect to the board over a UART terminal.
 - Use commands like `R,1000` to turn on the Red LED for 1000 milliseconds.
